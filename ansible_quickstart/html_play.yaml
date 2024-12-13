@@ -1,0 +1,26 @@
+- name: HTML Play
+  hosts: myhosts
+  become: yes
+  tasks:
+   - name: Installing Nginx
+     apt:
+      name: nginx
+      state: present
+
+   - name: HTML file
+     copy: 
+       content: |
+         <html> 
+         <head>
+            <title>Title</title>
+         </head>
+         <body>
+           <h1>Hello World!</h1>
+         </body>
+         </html>
+       dest: /var/www/html/index.html
+   - name: Installing Nginx
+     service:
+      name: nginx
+      state: started
+      enabled: yes

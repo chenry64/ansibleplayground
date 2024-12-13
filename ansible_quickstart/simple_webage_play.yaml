@@ -1,0 +1,161 @@
+- name: HTML Play
+  hosts: myhosts
+  become: yes
+  tasks:
+   - name: Installing Nginx
+     apt:
+      name: nginx
+      state: present
+
+   - name: HTML file
+     copy: 
+       content: |
+         <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Basic Web Page</title>
+            <link rel="stylesheet" href="styles.css">
+          </head>
+          <body>
+            <header id="header">Hello, world! </header>
+            
+            <main>
+              <div id="info">
+              <p>Welcome to my web page. 
+                  This is a basic page setup, with an HTML template, a CSS stylesheet, and a JS script file. 
+                  This was created using an Ansible playbook play, and can be used as a starting point for simple HTML pages.</p> 
+              <ul> 
+                  <li>HTML: /var/www/html/index.html</li> 
+                  <li>CSS: /var/www/html/styles.css</li> 
+                  <li>JavaScript: /var/www/html/script.js</li> 
+              </ul> 
+              <p>To edit this page and use it as your own, simply modify the files as needed.</p> 
+              
+              </div>
+              
+              <div id="buttonSection">
+                  <p>Click the button:</p>
+              <button id="buttonA">Click Me!</button>
+              </div>
+            </main>
+
+            <footer id="footer">
+              <p>Author: Caroline Henry</p>
+            </footer>
+            <script src="script.js"></script>
+
+          </body>
+          </html>
+
+       dest: /var/www/html/index.html
+   - name: CSS file
+     copy: 
+       content: |
+        body {
+          font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+          background-color: #f4f4f4;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 100vh;
+          margin: 0;
+        }
+        
+        header {
+          background-color: #b80028;
+          color: #fff;
+          text-align: center;
+          padding: 3px;
+          height: 30px;
+          font-style: oblique;
+          font-size: larger;
+          transition: background-color 0.3s ease;
+        }
+        
+        #buttonSection {
+          margin: 50px auto;
+          padding: 50px;
+          max-width: 600px;
+          text-align: center;
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px #727272;
+        }
+        
+        #info {
+          margin: 50px auto;
+          padding: 30px;
+          max-width: 800px;
+          background-color: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px #727272;
+          line-height: 1.6;
+          color: #333;
+          font-size: 1rem;
+        }
+
+        #info ul {
+          list-style-type: square;
+          margin: 20px 0;
+          padding-left: 20px;
+        }
+        
+        #info ul li {
+          margin-bottom: 10px;
+        }
+        
+        #info p {
+          margin-bottom: 20px;
+        }
+        
+        button {
+          background-color: #b80028;
+          color: #fff;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          border-radius: 15px;
+          border: 3px solid #000000;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        
+        footer {
+          background-color: #b80028;
+          color: #fff;
+          text-align: center;
+          line-height: 2;
+          transition: background-color 0.3s ease;
+        }
+       dest: /var/www/html/styles.css
+   - name: JavaScript file
+     copy:
+       content: |
+          const button = document.getElementById('buttonA');
+          const header = document.getElementById('header');
+          const footer = document.getElementById('footer');
+
+          button.addEventListener('click', () => {
+            if (button.textContent === 'Click Me!') {
+              button.textContent = 'Click again to switch back.';
+              button.style.backgroundColor = '#156900';
+              header.style.backgroundColor = '#156900';
+              footer.style.backgroundColor = '#156900';
+
+            } else {
+              button.textContent = 'Click Me!';
+              button.style.backgroundColor = '#b80028';
+              header.style.backgroundColor = '#b80028';
+              footer.style.backgroundColor = '#b80028';
+
+            }
+          });
+       dest: /var/www/html/script.js
+
+   - name: Installing Nginx
+     service:
+      name: nginx
+      state: started
+      enabled: yes
