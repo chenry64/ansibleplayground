@@ -1,5 +1,5 @@
 # Ansible Playground
-This repository explores the automation capabilities of Ansible. It contains examples, configurations, and playbooks for server provisioning, application deployment, and system management. The goal is to demonstrate Ansible’s efficiency in streamlining infrastructure tasks.
+This repository explores the automation functionality of Ansible. It contains practice playbooks that can be used for a wide variety of purposes using Ansible's IT-automation software suite. The goal is to explore and Ansible’s efficiency in streamlining infrastructure tasks.
 
 
 ### Instructions
